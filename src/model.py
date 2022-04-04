@@ -5,7 +5,10 @@ from torch import nn as nn
 
 
 
+class PLS(nn.Module):
 
+    def __init__(self, **kwargs):
+        super(PLS, self).__init__()
 
 
 
