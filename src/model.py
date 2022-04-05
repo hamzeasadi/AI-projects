@@ -20,6 +20,7 @@ class PLS(nn.Module):
        
         self.gap = nn.AvgPool1d(kernel_size=18, stride=1)
         self.flatten = nn.Flatten()
+        self.out = nn.Linear(in_features=64, out_features=kwargs['output_dim'])
         self.sigmoid = nn.Sigmoid()
 
 
@@ -35,6 +36,7 @@ class PLS(nn.Module):
         x = self.blk3(x)
         x = self.gap(x)
         x = self.flatten(x)
+        x = self.out(x)
         out = self.sigmoid(x)
 
         return out
