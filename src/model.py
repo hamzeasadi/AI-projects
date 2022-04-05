@@ -7,7 +7,7 @@ from torch import nn as nn
 
 # PLS hyper-parameters
 # cnv = [in_channels, out_chnnels, kernel_size, strids]
-pls_conv_params = {'cnv1':[1, 8, 7, 5], 'cnv2':[8, 32, 5, 3], 'cnv3':[32, 64, 4, 2], 'output_dim':1, 'input_dim':600}
+pls_conv_params = {'cnv1':[1, 8, 7, 5], 'cnv2':[8, 16, 5, 3], 'cnv3':[16, 32, 4, 2], 'output_dim':1, 'input_dim':1776}
 pls_linear_params = {'input_dim': 10, 'output_dim': 1, 'h1':8, 'h2': 5}
 
 class PLS(nn.Module):
@@ -18,9 +18,9 @@ class PLS(nn.Module):
         self.blk2 = self._block(inCh=kwargs['cnv2'][0], outCh=kwargs['cnv2'][1], krSz=kwargs['cnv2'][2], stride=kwargs['cnv2'][3])
         self.blk3 = self._block(inCh=kwargs['cnv3'][0], outCh=kwargs['cnv3'][1], krSz=kwargs['cnv3'][2], stride=kwargs['cnv3'][3])
        
-        self.gap = nn.AvgPool1d(kernel_size=18, stride=1)
+        self.gap = nn.AvgPool1d(kernel_size=19, stride=19)
         self.flatten = nn.Flatten()
-        self.out = nn.Linear(in_features=64, out_features=kwargs['output_dim'])
+        self.out = nn.Linear(in_features=32*3, out_features=kwargs['output_dim'])
         self.sigmoid = nn.Sigmoid()
 
 
@@ -42,7 +42,7 @@ class PLS(nn.Module):
         return out
 
 def main():
-    x = torch.Tensor(torch.randn(40, 1, 600))
+    x = torch.Tensor(torch.randn(40, 1, 1776))
     pls = PLS(**pls_conv_params)
     print(pls)
     out = pls(x)
