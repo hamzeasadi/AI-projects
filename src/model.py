@@ -25,7 +25,7 @@ class PLS(nn.Module):
 
     def _block(self, inCh, outCh, krSz, stride, pdd=0):
         return nn.Sequential(
-            nn.Conv1d(in_channels=inCh, out_channels=outCh, kernel_size=krSz, padding=pdd),
+            nn.Conv1d(in_channels=inCh, out_channels=outCh, kernel_size=krSz, stride=stride, padding=pdd),
             nn.BatchNorm1d(outCh),
             nn.LeakyReLU(negative_slope=0.1)
         )
@@ -40,7 +40,11 @@ class PLS(nn.Module):
         return out
 
 def main():
-    pass
+    x = torch.Tensor(torch.randn(40, 1, 600))
+    pls = PLS(**pls_conv_params)
+    print(pls)
+    out = pls(x)
+    print(out.size())
 
 
 
