@@ -5,8 +5,6 @@ import pandas as pd
 from torch import nn as nn
 
 
-# VAE hyper-parameters
-vae_params = {'encoder':0, 'decoder':0}
 
 # PLS hyper-parameters
 # cnv = [in_channels, out_chnnels, kernel_size, strids]
@@ -103,9 +101,13 @@ class Decoder(nn.Module):
         return out
 
 
+# VAE hyper-parameters
+vae_params = {'encoder':0, 'decoder':0}
+
 class VAE(nn.Module):
 
     def __init__(self, **kwargs):
+        super(VAE, self).__init__()
         self.encoder = kwargs['encoder']
         self.decoder = kwargs['decoder']
 
@@ -125,18 +127,17 @@ class VAE(nn.Module):
 
 def main():
     x = torch.Tensor(torch.randn(100, 1, 2000))
+
     encoder = Encoder(**encoder_linear_params)
-    mu, logvar = encoder(x)
-    print(f"shape(x) = {x.size()}")
-    print(f"shape(mu) = {mu.size()}")
-    print(f"shape(logvar) = {logvar.size()}")
-    print(encoder)
-    x = torch.Tensor(torch.randn(100, 1, 10))
+    
     decoder = Decoder(**decoder_linear_params)
-    xhat = decoder(x)
-    print(f"shape(x) = {x.size()}")
-    print(f"shape(xhat) = {xhat.size()}")
-    print(decoder)
+
+    vae_params['encoder'] = encoder
+    vae_params['decoder'] = decoder
+    vae = VAE(**vae_params)
+
+    print(vae)
+
 
 
 
