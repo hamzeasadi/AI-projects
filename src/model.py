@@ -6,7 +6,6 @@ from torch import nn as nn
 
 
 
-<<<<<<< HEAD
 # PLS hyper-parameters
 # cnv = [in_channels, out_chnnels, kernel_size, strids]
 pls_conv_params = {'cnv1':[1, 8, 7, 5], 'cnv2':[8, 16, 5, 3], 'cnv3':[16, 32, 4, 2], 'output_dim':1, 'input_dim':1776}
@@ -49,7 +48,6 @@ def main():
     print(pls)
     out = pls(x)
     print(out.size())
-=======
 # model hyper
 encoder_linear_params = {
     'h1': 500, 'h2': 100, 'input_dim':2000, 'latent_dim': 10
@@ -91,7 +89,6 @@ def main():
     print(f"shape(mu) = {mu.size()}")
     print(f"shape(logvar) = {logvar.size()}")
     print(encoder)
->>>>>>> model/Encoder
 
 
 
