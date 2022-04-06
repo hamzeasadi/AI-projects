@@ -40,7 +40,13 @@ class Encoder(nn.Module):
 
 
 def main():
-    pass
+    x = torch.Tensor(torch.randn(100, 1, 2000))
+    encoder = Encoder(**encoder_linear_params)
+    mu, logvar = encoder(x)
+    print(f"shape(x) = {x.size()}")
+    print(f"shape(mu) = {mu.size()}")
+    print(f"shape(logvar) = {logvar.size()}")
+    print(encoder)
 
 
 
